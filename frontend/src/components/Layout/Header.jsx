@@ -247,7 +247,7 @@ const Header = ({ activeHeading }) => {
               <div className="fixed w-[70%] bg-[#fff] h-screen top-0 left-0 z-10 overflow-y-scroll">
                 <div className="w-full justify-between flex pr-3">
                   <div>
-                    {/* <div
+                    <div
                       className="relative mr-[15px]"
                       onClick={() => setOpenWishlist(true) || setOpen(false)}
                     >
@@ -255,7 +255,7 @@ const Header = ({ activeHeading }) => {
                       <span class="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px]  leading-tight text-center">
                         {wishlist && wishlist.length}
                       </span>
-                    </div> */}
+                    </div>
                   </div>
                   <RxCross1
                     size={30}

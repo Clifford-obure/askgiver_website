@@ -198,21 +198,21 @@ export const categoriesData = [
   },
   {
     id: 2,
-    title: "cosmetics and body care",
+    title: "Cosmetics and Body Care",
     subTitle: "",
     image_Url:
       "https://indian-retailer.s3.ap-south-1.amazonaws.com/s3fs-public/2021-07/kosme1.png",
   },
   {
     id: 3,
-    title: "Accesories",
+    title: "Accessories",
     subTitle: "",
     image_Url:
       "https://img.freepik.com/free-vector/ordering-goods-online-internet-store-online-shopping-niche-e-commerce-website-mother-buying-babies-clothes-footwear-toys-infant-accessories_335657-2345.jpg?w=2000",
   },
   {
     id: 4,
-    title: "Cloths",
+    title: "Clothes",
     subTitle: "",
     image_Url:
       "https://www.shift4shop.com/2015/images/industries/clothing/clothing-apparel.png",
@@ -257,6 +257,84 @@ export const categoriesData = [
     subTitle: "",
     image_Url:
       "https://searchspring.com/wp-content/uploads/2022/10/Hero-Image-Platform-Others-2.png",
+  },
+  {
+    id: 11,
+    title: "Vehicles (Automobiles)",
+    subTitle: "",
+    image_Url: "https://example.com/vehicles.jpg",
+  },
+  {
+    id: 12,
+    title: "Property (Real Estate)",
+    subTitle: "",
+    image_Url: "https://example.com/real-estate.jpg",
+  },
+  {
+    id: 13,
+    title: "Electronics",
+    subTitle: "",
+    image_Url: "https://example.com/electronics.jpg",
+  },
+  {
+    id: 14,
+    title: "Home, Furniture & Appliances",
+    subTitle: "",
+    image_Url: "https://example.com/home-appliances.jpg",
+  },
+  {
+    id: 15,
+    title: "Health & Beauty",
+    subTitle: "",
+    image_Url: "https://example.com/health-beauty.jpg",
+  },
+  {
+    id: 16,
+    title: "Fashion",
+    subTitle: "",
+    image_Url: "https://example.com/fashion.jpg",
+  },
+  {
+    id: 17,
+    title: "Sports, Arts & Outdoors",
+    subTitle: "",
+    image_Url: "https://example.com/sports-arts-outdoors.jpg",
+  },
+  {
+    id: 18,
+    title: "Services",
+    subTitle: "",
+    image_Url: "https://example.com/services.jpg",
+  },
+  {
+    id: 19,
+    title: "Babies & Kids",
+    subTitle: "",
+    image_Url: "https://example.com/babies-kids.jpg",
+  },
+  {
+    id: 20,
+    title: "Animals & Pets",
+    subTitle: "",
+    image_Url: "https://example.com/animals-pets.jpg",
+  },
+  {
+    id: 21,
+    title: "Agriculture & Food",
+    subTitle: "",
+    image_Url: "https://example.com/agriculture-food.jpg",
+  },
+  {
+    id: 22,
+    title: "Commercial Equipment & Tools",
+    subTitle: "",
+    image_Url: "https://example.com/commercial-equipment.jpg",
+  },
+  {
+    id: 23,
+    title: "Repair & Construction",
+    subTitle: "",
+    image_Url: "https://example.com/repair-construction.jpg",
   },
 ];
 
