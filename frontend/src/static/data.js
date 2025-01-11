@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-keys */
 // navigation Data
 export const navItems = [
   {
