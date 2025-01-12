@@ -149,7 +149,7 @@ const Signup = () => {
 
             <div>
               <label
-                htmlFor="county"
+                htmlFor="country"
                 className="block text-sm font-medium text-gray-700"
               >
                 Country
@@ -162,7 +162,7 @@ const Signup = () => {
                   onChange={(e) => setCountry(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 >
-                  <option value="">Select County</option>
+                  <option value="">Select Country</option>
                   {locationData.countries.map((country) => (
                     <option key={country.id} value={country.name}>
                       {country.name}
@@ -188,9 +188,9 @@ const Signup = () => {
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 >
                   <option value="">Select County</option>
-                  {locationData.counties
-                    // .filter((sc) => sc.countryId === country)
-                    .map((county) => (
+                  {locationData.countries
+                    .find((c) => c.name === country)
+                    ?.counties.map((county) => (
                       <option key={county.id} value={county.name}>
                         {county.name}
                       </option>
@@ -204,7 +204,7 @@ const Signup = () => {
                 htmlFor="subCounty"
                 className="block text-sm font-medium text-gray-700"
               >
-                subCounty
+                SubCounty
               </label>
               <div className="mt-1">
                 <select
@@ -214,10 +214,11 @@ const Signup = () => {
                   onChange={(e) => setsubCounty(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 >
-                  <option value="">Select subCounty</option>
-                  {locationData.subCounties
-                    // .filter((w) => w.countyId === county)
-                    .map((subCounty) => (
+                  <option value="">Select SubCounty</option>
+                  {locationData.countries
+                    .find((c) => c.name === country)
+                    ?.counties.find((co) => co.name === county)
+                    ?.subCounties.map((subCounty) => (
                       <option key={subCounty.id} value={subCounty.name}>
                         {subCounty.name}
                       </option>
