@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,10 +21,12 @@ const CreateProduct = () => {
   const [originalPrice, setOriginalPrice] = useState();
   const [discountPrice, setDiscountPrice] = useState();
   const [stock, setStock] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (error) {
       toast.error(error);
+      setLoading(false);
     }
     if (success) {
       toast.success("Product created successfully!");
@@ -51,6 +54,7 @@ const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const newForm = new FormData();
 
@@ -145,7 +149,7 @@ const CreateProduct = () => {
         </div>
         <br />
         <div>
-          <label className="pb-2">Original Price</label>
+          <label className="pb-2">Item value</label>
           <input
             type="number"
             name="price"
@@ -188,11 +192,15 @@ const CreateProduct = () => {
           </div>
           <br />
           <div>
-            <input
-              type="submit"
-              value="Create"
-              className="mt-2 cursor-pointer appearance-none text-center block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
+            {loading ? (
+              <div className="mt-2 text-center">Loading...</div>
+            ) : (
+              <input
+                type="submit"
+                value="Create"
+                className="mt-2 cursor-pointer appearance-none text-center block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            )}
           </div>
         </div>
       </form>
