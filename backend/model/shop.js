@@ -48,19 +48,15 @@ const shopSchema = new mongoose.Schema({
   },
   country: {
     type: String,
-    required: true,
+    required: false,
   },
   county: {
     type: String,
-    required: true,
+    required: false,
   },
   subcounty: {
     type: String,
-    required: true,
-  },
-  location: {
-    type: String,
-    required: true,
+    required: false,
   },
   withdrawMethod: {
     type: Object,
