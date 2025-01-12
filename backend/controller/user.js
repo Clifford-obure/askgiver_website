@@ -12,7 +12,16 @@ const { isAuthenticated, isAdmin } = require("../middleware/auth");
 // create user
 router.post("/create-user", async (req, res, next) => {
   try {
-    const { name, email, password, avatar } = req.body;
+    const {
+      name,
+      email,
+      password,
+      avatar,
+      houseStreet,
+      subCounty,
+      county,
+      country,
+    } = req.body;
     const userEmail = await User.findOne({ email });
 
     if (userEmail) {
@@ -27,12 +36,15 @@ router.post("/create-user", async (req, res, next) => {
       name: name,
       email: email,
       password: password,
+      houseStreet: houseStreet,
+      subCounty: subCounty,
+      country: country,
+      county: county,
       avatar: {
         public_id: myCloud.public_id,
         url: myCloud.secure_url,
       },
     };
-
     const activationToken = createActivationToken(user);
 
     const activationUrl = `https://askgiver-website.vercel.app/activation/${activationToken}`;
@@ -41,11 +53,11 @@ router.post("/create-user", async (req, res, next) => {
       await sendMail({
         email: user.email,
         subject: "Activate your account",
-        message: `Hello ${user.name}, please click on the link to activate your account: ${activationUrl}`,
+        message: `Hello ${user.name}, please click on the link to activate your askgivers account: ${activationUrl}`,
       });
       res.status(201).json({
         success: true,
-        message: `please check your email:- ${user.email} to activate your account!`,
+        message: `please check your email:- ${user.email} to activate your askgivers account!`,
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
@@ -58,7 +70,7 @@ router.post("/create-user", async (req, res, next) => {
 // create activation token
 const createActivationToken = (user) => {
   return jwt.sign(user, process.env.ACTIVATION_SECRET, {
-    expiresIn: "5m",
+    expiresIn: "10m",
   });
 };
 
@@ -77,20 +89,24 @@ router.post(
       if (!newUser) {
         return next(new ErrorHandler("Invalid token", 400));
       }
-      const { name, email, password, avatar } = newUser;
-
-      let user = await User.findOne({ email });
+      let user = await User.findOne({ email: newUser.email });
 
       if (user) {
         return next(new ErrorHandler("User already exists", 400));
       }
-      user = await User.create({
-        name,
-        email,
-        avatar,
-        password,
+
+      user = new User({
+        name: newUser.name,
+        email: newUser.email,
+        password: newUser.password,
+        avatar: newUser.avatar,
+        houseStreet: newUser.houseStreet,
+        subCounty: newUser.subCounty,
+        county: newUser.county,
+        country: newUser.country,
       });
 
+      await user.save();
       sendToken(user, 201, res);
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));

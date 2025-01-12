@@ -6,14 +6,19 @@ import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+import { locationData } from "../../static/data";
 
-const Singup = () => {
+const Signup = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [country, setCountry] = useState("");
+  const [county, setCounty] = useState("");
+  const [subCounty, setsubCounty] = useState("");
+  const [houseStreet, setHouseStreet] = useState("");
 
   const handleFileInputChange = (e) => {
     const reader = new FileReader();
@@ -32,13 +37,25 @@ const Singup = () => {
     setLoading(true);
 
     axios
-      .post(`${server}/user/create-user`, { name, email, password, avatar })
+      .post(`${server}/user/create-user`, {
+        name,
+        email,
+        password,
+        avatar,
+        country,
+        county,
+        subCounty,
+        houseStreet,
+      })
       .then((res) => {
         toast.success(res.data.message);
         setName("");
         setEmail("");
         setPassword("");
         setAvatar(null);
+        setCounty("");
+        setsubCounty("");
+        setHouseStreet("");
         setLoading(false);
       })
       .catch((error) => {
@@ -59,7 +76,7 @@ const Singup = () => {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
-                htmlFor="email"
+                htmlFor="name"
                 className="block text-sm font-medium text-gray-700"
               >
                 Full Name
@@ -67,7 +84,7 @@ const Singup = () => {
               <div className="mt-1">
                 <input
                   type="text"
-                  name="text"
+                  name="name"
                   autoComplete="name"
                   required
                   value={name}
@@ -132,6 +149,104 @@ const Singup = () => {
 
             <div>
               <label
+                htmlFor="county"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Country
+              </label>
+              <div className="mt-1">
+                <select
+                  name="country"
+                  required
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                >
+                  <option value="">Select County</option>
+                  {locationData.countries.map((country) => (
+                    <option key={country.id} value={country.name}>
+                      {country.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="county"
+                className="block text-sm font-medium text-gray-700"
+              >
+                County
+              </label>
+              <div className="mt-1">
+                <select
+                  name="county"
+                  required
+                  value={county}
+                  onChange={(e) => setCounty(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                >
+                  <option value="">Select County</option>
+                  {locationData.counties
+                    // .filter((sc) => sc.countryId === country)
+                    .map((county) => (
+                      <option key={county.id} value={county.name}>
+                        {county.name}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="subCounty"
+                className="block text-sm font-medium text-gray-700"
+              >
+                subCounty
+              </label>
+              <div className="mt-1">
+                <select
+                  name="subCounty"
+                  required
+                  value={subCounty}
+                  onChange={(e) => setsubCounty(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                >
+                  <option value="">Select subCounty</option>
+                  {locationData.subCounties
+                    // .filter((w) => w.countyId === county)
+                    .map((subCounty) => (
+                      <option key={subCounty.id} value={subCounty.name}>
+                        {subCounty.name}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="houseStreet"
+                className="block text-sm font-medium text-gray-700"
+              >
+                House/Street
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="houseStreet"
+                  required
+                  value={houseStreet}
+                  onChange={(e) => setHouseStreet(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
                 htmlFor="avatar"
                 className="block text-sm font-medium text-gray-700"
               ></label>
@@ -186,4 +301,4 @@ const Singup = () => {
   );
 };
 
-export default Singup;
+export default Signup;

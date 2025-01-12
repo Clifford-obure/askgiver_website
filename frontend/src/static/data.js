@@ -725,3 +725,20 @@ export const footerSupportLinks = [
     name: "Live chat",
   },
 ];
+// location data
+export const locationData = {
+  countries: [{ id: 1, name: "Kenya" }],
+  counties: [{ id: 1, name: "Nairobi" }],
+  subCounties: [
+    { id: 1, countyId: 1, name: "Westlands" },
+    { id: 2, countyId: 1, name: "Kilimani" },
+    { id: 3, countyId: 1, name: "Kasarani" },
+    { id: 4, countyId: 1, name: "Karen" },
+  ],
+  wards: [
+    { id: 1, subCountyId: 1, name: "Waiyaki Way" },
+    { id: 2, subCountyId: 2, name: "Ngong Road" },
+    { id: 3, subCountyId: 3, name: "Thika Road" },
+    { id: 4, subCountyId: 4, name: "Karen Road" },
+  ],
+};
