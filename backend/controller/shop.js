@@ -35,7 +35,7 @@ router.post(
         },
         address: req.body.address,
         phoneNumber: req.body.phoneNumber,
-        zipCode: req.body.zipCode,
+        location: req.body.location,
       };
 
       const activationToken = createActivationToken(seller);
@@ -45,12 +45,12 @@ router.post(
       try {
         await sendMail({
           email: seller.email,
-          subject: "Activate your Shop",
-          message: `Hello ${seller.name}, please click on the link to activate your shop: ${activationUrl}`,
+          subject: "Activate your Askgiver account",
+          message: `Hello ${seller.name}, please click on the link to activate your askgivers account: ${activationUrl}`,
         });
         res.status(201).json({
           success: true,
-          message: `please check your email:- ${seller.email} to activate your shop!`,
+          message: `please check your email:- ${seller.email} to activate your askgivers account!`,
         });
       } catch (error) {
         return next(new ErrorHandler(error.message, 500));
@@ -64,7 +64,7 @@ router.post(
 // create activation token
 const createActivationToken = (seller) => {
   return jwt.sign(seller, process.env.ACTIVATION_SECRET, {
-    expiresIn: "5m",
+    expiresIn: "10m",
   });
 };
 
@@ -83,7 +83,7 @@ router.post(
       if (!newSeller) {
         return next(new ErrorHandler("Invalid token", 400));
       }
-      const { name, email, password, avatar, zipCode, address, phoneNumber } =
+      const { name, email, password, avatar, location, address, phoneNumber } =
         newSeller;
 
       let seller = await Shop.findOne({ email });
@@ -97,7 +97,7 @@ router.post(
         email,
         avatar,
         password,
-        zipCode,
+        location,
         address,
         phoneNumber,
       });

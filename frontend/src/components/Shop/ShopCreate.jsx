@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { React, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../../styles/styles";
@@ -6,19 +7,22 @@ import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 import { RxAvatar } from "react-icons/rx";
+import { ClipLoader } from "react-spinners"; // Import a loader component
 
 const ShopCreate = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState();
   const [address, setAddress] = useState("");
-  const [zipCode, setZipCode] = useState();
+  const [location, setLocation] = useState();
   const [avatar, setAvatar] = useState();
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false); // Add loading state
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true when form is submitted
 
     axios
       .post(`${server}/shop/create-shop`, {
@@ -26,7 +30,7 @@ const ShopCreate = () => {
         email,
         password,
         avatar,
-        zipCode,
+        location,
         address,
         phoneNumber,
       })
@@ -36,12 +40,14 @@ const ShopCreate = () => {
         setEmail("");
         setPassword("");
         setAvatar();
-        setZipCode();
+        setLocation();
         setAddress("");
         setPhoneNumber();
+        setLoading(false); // Set loading to false when submission is complete
       })
       .catch((error) => {
         toast.error(error.response.data.message);
+        setLoading(false); // Set loading to false when submission fails
       });
   };
 
@@ -67,12 +73,13 @@ const ShopCreate = () => {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-[35rem]">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* Form fields */}
             <div>
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                Shop Name
+                Name
               </label>
               <div className="mt-1">
                 <input
@@ -149,15 +156,15 @@ const ShopCreate = () => {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                Zip Code
+                Location
               </label>
               <div className="mt-1">
                 <input
-                  type="number"
-                  name="zipcode"
+                  type="string"
+                  name="location"
                   required
-                  value={zipCode}
-                  onChange={(e) => setZipCode(e.target.value)}
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
@@ -233,8 +240,13 @@ const ShopCreate = () => {
               <button
                 type="submit"
                 className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                disabled={loading} // Disable button when loading
               >
-                Submit
+                {loading ? (
+                  <ClipLoader size={20} color={"#fff"} /> // Show loader when loading
+                ) : (
+                  "Submit"
+                )}
               </button>
             </div>
             <div className={`${styles.noramlFlex} w-full`}>

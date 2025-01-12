@@ -13,6 +13,7 @@ const Singup = () => {
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const [avatar, setAvatar] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleFileInputChange = (e) => {
     const reader = new FileReader();
@@ -28,6 +29,7 @@ const Singup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     axios
       .post(`${server}/user/create-user`, { name, email, password, avatar })
@@ -36,10 +38,12 @@ const Singup = () => {
         setName("");
         setEmail("");
         setPassword("");
-        setAvatar();
+        setAvatar(null);
+        setLoading(false);
       })
       .catch((error) => {
         toast.error(error.response.data.message);
+        setLoading(false);
       });
   };
 
@@ -164,8 +168,9 @@ const Singup = () => {
               <button
                 type="submit"
                 className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                disabled={loading}
               >
-                Submit
+                {loading ? "Submitting..." : "Submit"}
               </button>
             </div>
             <div className={`${styles.noramlFlex} w-full`}>
